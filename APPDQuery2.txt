@@ -1,0 +1,37 @@
+SELECT mp.SPID, mp.Login AS Login, mp.Application AS Application, mp.HostName AS Host, 
+ db_name(mp.DBID) AS db, mp.WaitEventID AS we, mp.BlockingSPID AS blocker, mb.Login AS blocker_Login, mb.HostName AS Blocker_Host, object_name(ml.ObjectID, ml.DBID) as object_name
+FROM master.dbo.monProcess mp LEFT OUTER JOIN master.dbo.monProcess mb on (mp.BlockingSPID = mb.SPID) LEFT OUTER JOIN master.dbo.monLocks ml on (mp.SPID = ml.SPID) AND ml.LockState = 'Requested' WHERE  mp.Command <> 'AWAITING COMMAND' AND mp.Login IS NOT NULL 
+SELECT SPID, LineNumber, SequenceInLine, SQLText 
+FROM master.dbo.monProcessSQLText ORDER BY SPID, LineNumber, SequenceInLine 
+SELECT SPID, ObjectName FROM master.dbo.monProcessProcedures;
+
+
+Results 2/4/2020
+
+12>
+13> SELECT mp.SPID, mp.Login AS Login, mp.Application AS Application, mp.HostName AS Host,
+14>  db_name(mp.DBID) AS db, mp.WaitEventID AS we, mp.BlockingSPID AS blocker, mb.Login AS blocker_Login, mb.HostName AS Blocker_Host, object_name(ml.ObjectID, ml.DBID) as object_name
+15> FROM master.dbo.monProcess mp LEFT OUTER JOIN master.dbo.monProcess mb on (mp.BlockingSPID = mb.SPID) LEFT OUTER JOIN master.dbo.monLocks ml on (mp.SPID = ml.SPID) AND ml.LockStat                                              e = 'Requested' WHERE  mp.Command <> 'AWAITING COMMAND' AND mp.Login IS NOT NULL
+SELECT SPID, LineNumber, SequenceInLine, SQLText
+FROM master.dbo.monProcessSQLText ORDER BY SPID, LineNumber, SequenceInLine
+16> 17> 18> SELECT SPID, ObjectName FROM master.dbo.monProcessProcedures;
+19> go
+Msg 105, Level 15, State 2:
+Server 'GWB', Line 5:
+Unclosed quote before the character string '[A
+
+
+
+
+
+
+
+SELECT mp.SPID, mp.Login
+AS Login, mp.Application AS Application, mp.HostName AS Host,
+ db_name(mp.DBID)
+AS db, mp.WaitEventID AS we, mp.BlockingSPID AS blocker, mb.Login AS
+blocker_Login, mb.HostName AS Blocker_Host, object_name(ml.ObjectID, m'.
+1>
+
+
+
